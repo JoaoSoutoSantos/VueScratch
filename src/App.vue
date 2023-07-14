@@ -1,8 +1,9 @@
 <script setup>
 import scratch from './components/scratch.vue';
+import navBar from './components/navBar.vue';
 </script>
 
 <template>
-  aaaa
+  <navBar/>
   <scratch/>
 </template>

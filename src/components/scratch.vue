@@ -5,11 +5,10 @@ import { Controls } from '@vue-flow/controls'
 import { MiniMap } from '@vue-flow/minimap'
 import { ref } from 'vue'
 import { initialElements } from '../initial-elements.js'
+import controls from '../control.vue'
+import { MarkerType } from '@vue-flow/core'
 
-/**
- * useVueFlow provides all event handlers and store properties
- * You can pass the composable an object that has the same properties as the VueFlow component props
- */
+
 const { onPaneReady, onNodeDragStop, onConnect, updateEdge, addEdges, setTransform, toObject } = useVueFlow()
 
 function onEdgeUpdate({ edge, connection }) {
@@ -17,20 +16,9 @@ function onEdgeUpdate({ edge, connection }) {
 }
 
 
-/**
- * Our elements
- */
 const elements = initialElements
 
-// function DeleteNode(){
-//   elements[]
-// }
 
-/**
- * This is a Vue Flow event-hook which can be listened to from anywhere you call the composable, instead of only on the main component
- *
- * onPaneReady is called when viewpane & nodes have visible dimensions
- */
 onPaneReady(({ fitView }) => {
   fitView()
 })
@@ -41,7 +29,23 @@ onNodeDragStop((e) => console.log('drag stop', e))
  * onConnect is called when a new connection is created.
  * You can add additional properties to your new edge (like a type or label) or block the creation altogether
  */
-onConnect((params) => addEdges(params))
+onConnect(
+  (params) => addNewEdges(params)
+)
+
+function addNewEdges(params){
+  const new_edge = [{
+        source: params.source,
+        target: params.target,
+        sourceHandle: params.sourceHandle,
+        targetHandle: params.targetHandle,
+        animated: true, // Animação da aresta
+        updatable: true, // Possibilidade de atualização da aresta
+        markerEnd: MarkerType.ArrowClosed // Tipo de marcador de seta no final da aresta
+     }]
+  addEdges(new_edge);
+}
+
 const dark = ref(false)
 
 /**
@@ -82,9 +86,11 @@ function toggleClass() {
   <VueFlow v-model="elements" :class="{ dark }" class="basicflow" :default-viewport="{ zoom: 1.5 }" :min-zoom="0.2" :max-zoom="4" @edge-update="onEdgeUpdate" >
     <Background :pattern-color="dark ? '#FFFFFB' : '#d8d7d7'" gap="40" variant="lines"  />
 
+    <controls style= "padding-top: 50px;"/>
+
     <MiniMap />
 
-    <Controls />
+    <Controls style="padding-bottom: 70px;"/>
 
     <Panel position="top-right" class="controls">
       <button style="background-color: #11854b; color: white" title="Reset Transform" @click="resetTransform">
