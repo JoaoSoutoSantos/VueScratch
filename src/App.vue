@@ -1,5 +1,5 @@
 <script setup>
-import scratch from './scratch.vue';
+import scratch from './components/scratch.vue';
 </script>
 
 <template>

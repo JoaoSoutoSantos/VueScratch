@@ -4,18 +4,27 @@ import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import { MiniMap } from '@vue-flow/minimap'
 import { ref } from 'vue'
-import { initialElements } from './initial-elements.js'
+import { initialElements } from '../initial-elements.js'
 
 /**
  * useVueFlow provides all event handlers and store properties
  * You can pass the composable an object that has the same properties as the VueFlow component props
  */
-const { onPaneReady, onNodeDragStop, onConnect, addEdges, setTransform, toObject } = useVueFlow()
+const { onPaneReady, onNodeDragStop, onConnect, updateEdge, addEdges, setTransform, toObject } = useVueFlow()
+
+function onEdgeUpdate({ edge, connection }) {
+  return updateEdge(edge, connection)
+}
+
 
 /**
  * Our elements
  */
-const elements = ref(initialElements)
+const elements = initialElements
+
+// function DeleteNode(){
+//   elements[]
+// }
 
 /**
  * This is a Vue Flow event-hook which can be listened to from anywhere you call the composable, instead of only on the main component
@@ -70,8 +79,8 @@ function toggleClass() {
 </script>
 
 <template>
-  <VueFlow v-model="elements" :class="{ dark }" class="basicflow" :default-viewport="{ zoom: 1.5 }" :min-zoom="0.2" :max-zoom="4">
-    <Background :pattern-color="dark ? '#FFFFFB' : '#aaa'" gap="3" />
+  <VueFlow v-model="elements" :class="{ dark }" class="basicflow" :default-viewport="{ zoom: 1.5 }" :min-zoom="0.2" :max-zoom="4" @edge-update="onEdgeUpdate" >
+    <Background :pattern-color="dark ? '#FFFFFB' : '#d8d7d7'" gap="40" variant="lines"  />
 
     <MiniMap />
 
