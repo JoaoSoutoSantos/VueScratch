@@ -35,13 +35,9 @@ function onAdd() {
 
 <template>
   <Panel position="top-right" class="save-restore-controls">
-    <button style="background-color: #33a6b8" @click="onSave">save</button>
-    <button style="background-color: #113285" @click="onRestore">restore</button>
-    <button style="background-color: #6f3381" @click="onAdd">add node</button>
+    <button style="background-color: #33a6b8" @click="onSave" class="px-3 py-1 mx-1 text-white rounded">Salvar</button>
+    <button style="background-color: #113285" @click="onRestore"
+      class="px-3 py-1 text-white rounded mx-1">Restaurar</button>
+    <!-- <button style="background-color: #6f3381" @click="onAdd" class="px-3 py-1 text-white rounded">Adicionar Nó</button> -->
   </Panel>
 </template>
-
-<style>
-
-
-</style>
