@@ -27,9 +27,6 @@ function onAdd() {
     id: `random_node-${id}`,
     label: `Node ${id}`,
     position: { x: Math.random() * dimensions.value.width, y: Math.random() * dimensions.value.height },
-    animated: true, 
-    updatable: true,
-    markerEnd: MarkerType.ArrowClosed
   }
 
   addNodes([newNode])
@@ -43,3 +40,8 @@ function onAdd() {
     <button style="background-color: #6f3381" @click="onAdd">add node</button>
   </Panel>
 </template>
+
+<style>
+
+
+</style>

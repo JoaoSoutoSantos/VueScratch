@@ -7,7 +7,7 @@ import { ref } from 'vue'
 import { initialElements } from '../initial-elements.js'
 import controls from '../control.vue'
 import { MarkerType } from '@vue-flow/core'
-
+import CustomConnectionLine from './CustomConnectionLine.vue'
 
 const { onPaneReady, onNodeDragStop, onConnect, updateEdge, addEdges, setTransform, toObject } = useVueFlow()
 
@@ -122,7 +122,7 @@ function toggleClass() {
         </template>
 
         <template v-else>
-          <svg width="16" height="16" viewBox="0 0 24 24"> -->
+          <svg width="16" height="16" viewBox="0 0 24 24">
             <path
               fill="#FFFFFB"
               d="M12 21q-3.75 0-6.375-2.625T3 12q0-3.75 2.625-6.375T12 3q.35 0 .688.025q.337.025.662.075q-1.025.725-1.637 1.887Q11.1 6.15 11.1 7.5q0 2.25 1.575 3.825Q14.25 12.9 16.5 12.9q1.375 0 2.525-.613q1.15-.612 1.875-1.637q.05.325.075.662Q21 11.65 21 12q0 3.75-2.625 6.375T12 21Z"
@@ -140,5 +140,9 @@ function toggleClass() {
         </svg>
       </button>
     </Panel>
+
+    <template #connection-line="{ sourceX, sourceY, targetX, targetY }">
+      <CustomConnectionLine :source-x="sourceX" :source-y="sourceY" :target-x="targetX" :target-y="targetY" />
+    </template>
   </VueFlow>
 </template>
